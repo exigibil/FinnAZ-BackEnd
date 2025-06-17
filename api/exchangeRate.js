@@ -17,12 +17,21 @@ router.get("/", async (req, res) => {
 
       const rates = result.DataSet.Body.Cube.Rate;
       const date = result.DataSet.Body.Cube.$.date;
-      const currencies = {};
+      const currencies = {
+        date: date,
+      };
 
       if (Array.isArray(rates)) {
         for (const rate of rates) {
           const currency = rate.$.currency;
           const value = parseFloat(rate._);
+          const dateObj = new Date(date);
+          
+          const exchangeRate = new ExchangeRate({
+            date: dateObj,
+            currency: currency,
+            rate: value,
+          });
 
           if (currency === "EUR" || currency === "USD") {
             currencies[currency] = value;
