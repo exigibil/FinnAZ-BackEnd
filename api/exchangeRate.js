@@ -33,11 +33,7 @@ router.get("/", async (req, res) => {
             rate: value,
           });
 
-          if (currency === "EUR" || currency === "USD") {
-            currencies[currency] = value;
-
-          
-          }
+         currencies[currency] = value;
         }
       }
 
